@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["chip@chipcastle.com"]
   gem.description   = %q{Ruby wrapper for the FanFeedr API}
   gem.summary       = %q{Ruby wrapper for the FanFeedr API}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/chip/fandeedr"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
