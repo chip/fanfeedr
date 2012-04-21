@@ -1,0 +1,24 @@
+{
+    "division_id": "9356611a-2b0a-5e12-b539-23a766e56729",
+    "league": "NFL",
+    "resource": "/nfl/new_orleans_saints",
+    "league_in_season": false,
+    "short_name": "Saints",
+    "league_id": "13962b74-cab5-5d0a-93c8-466b6a3fa342",
+    "nicknames": [
+        "{\"New Orleans Saints\"}"
+    ],
+    "colors": [
+        "#000000",
+        "#C6A876",
+        "#FFFFFF"
+    ],
+    "id": "4dc811c2-d9d2-5ae6-9972-5fd75183b897",
+    "abr": "NO",
+    "location": "577",
+    "full_name": "New Orleans Saints",
+    "conference_id": "cbf3b8cf-8d3d-5381-9944-b2f2cb9f5865",
+    "logo": "http://api.ffd.me/img/teams/new_orleans_saints.png?mt=hsIVeePdEEJtL1nRoFEhVqFJIeZxiZmkY5cGTJBMYhvMtoPmnF7z7smpd3zDVnGH-6f6f1249-b268-4a5f-92f8-2e3652ecffa5_it%2BqNNBVYSvnsssIJRLBm2zjt8fCFWdS8rrSAUIsJrVgekiTbwZBJJRwIjE2eswP",
+    "abbreviated_name": "New Orleans Saints",
+    "mascot": "Gumbo, Sir Saint"
+}
