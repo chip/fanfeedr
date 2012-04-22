@@ -1,25 +1,18 @@
+require "fanfeedr"
 require "fanfeedr/league"
-require "fanfeedr/client"
-require "yaml"
+require "helper"
 
 describe Fanfeedr::League do
 
-  let(:api_key) do
-    file = File.dirname(__FILE__) + '/../support/fanfeedr.yml'
-    YAML::load( File.open(file) )["key"]
-  end
-  subject { Fanfeedr::League.new("NFL", '13962b74-cab5-5d0a-93c8-466b6a3fa342', api_key) }
+  let(:id) { "13962b74-cab5-5d0a-93c8-466b6a3fa342" } 
 
-  # @fanfeedr = Fanfeedr.new(api_key)
-  # or
-  # @fanfeedr = Fanfeedr::Client.new(api_key)
-  # 
-  # @fanfeedr.leagues # => Fetch data, return Array of League objects
-  # 
-  # @fanfeedr.league("NFL") # => Fetch data from .leagues 
-  #                         # => find id for league param
-  #                         # => Fetch data for league with id
-  #
+  before do
+    url = "#{Fanfeedr::API_ENDPOINT}/leagues/#{id}?api_key=#{stub_api_key}"
+    stub_json_request(url, 'leagues/nfl.json')
+  end
+
+  subject { Fanfeedr::League.new("NFL", id, stub_api_key) }
+
   context "attributes" do
 
     it "should return the gender" do
