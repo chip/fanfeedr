@@ -32,11 +32,19 @@ module Fanfeedr
       @levels = @record["levels"]
     end
 
+    def conferences
+      fetch(conferences_url)
+    end
+
+      
     private
 
     def url
       "#{Fanfeedr::API_ENDPOINT}/leagues/#{@id}?api_key=#{@api_key}"
     end
 
+    def conferences_url
+      "#{Fanfeedr::API_ENDPOINT}/leagues/#{@id}/conferences?api_key=#{@api_key}"
+    end
   end
 end

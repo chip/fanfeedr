@@ -21,10 +21,13 @@ module Fanfeedr
     end
 
     def find(name)
-      @list.select { |l| l.name == name }.first
+      puts "find(#{name})"
+      @list.select { |l| 
+        puts "#{l.name})"
+        l.name == name 
+      }.first
     end
 
-      
     private
 
     def url
