@@ -5,27 +5,31 @@ module Fanfeedr
 
     include Fanfeedr::Utils
 
-    attr_reader :api_key, :list
-
     def initialize(api_key)
       @api_key = api_key
       @list = seed
-      @records = nil
-    end
-
-    def seed 
-      @records ||= fetch url
-      @records.inject([]) do |list, league|
-        list << Fanfeedr::League.new(league["name"], league["id"], @api_key)
-      end
     end
 
     def find(name)
-      @list.select { |l| l.name == name }.first
+      @list.select { |league| league.name == name }.first
     end
 
-      
+    def api_key
+      @api_key 
+    end
+
+    def list
+      @list 
+    end
+
     private
+
+    def seed 
+      records = fetch url
+      records.inject([]) do |list, league|
+        list << Fanfeedr::League.new(league["name"], league["id"], @api_key)
+      end
+    end
 
     def url
       "#{Fanfeedr::API_ENDPOINT}/leagues?api_key=#{@api_key}"
