@@ -1,50 +1,51 @@
-require 'fanfeedr/utils'
+require 'fanfeedr'
 
 module Fanfeedr
-  class League
+  class League < Client
 
     include Fanfeedr::Utils
 
-    attr_reader :api_key, :name, :id
+    attr_reader :name, :id
 
-    def initialize(name, id, api_key)
-      @name = name
-      @id = id
-      @api_key = api_key
-      @gender = nil
-      @sport = nil
-      @levels = nil
-      @record = nil
+    def initialize(league)
+      @id = league["id"]
+      @name = league["name"]
     end
 
     def gender
-      @record ||= fetch(url)
-      @gender = @record["gender"]
+      fetch(url)["gender"]
     end
 
     def sport 
-      @record ||= fetch(url)
-      @sport = @record["sport"]
+      fetch(url)["sport"]
     end
 
     def levels
-      @record ||= fetch(url)
-      @levels = @record["levels"]
+      fetch(url)["levels"]
     end
 
     def conferences
-      fetch(conferences_url)
+      puts "conferences........"
+      data = fetch(conferences_url)
+      @conferences = data.inject([]) do |accum, conference|
+        puts "id #{@id}"
+        accum << Fanfeedr::Conference.new(conference["id"], @id, @api_key)
+        puts "accum: #{accum.inspect}"
+        accum
+      end
+      puts "conferences: #{@conferences.inspect}"
+      @conferences
     end
 
       
-    private
+ private
 
     def url
-      "#{Fanfeedr::API_ENDPOINT}/leagues/#{@id}?api_key=#{@api_key}"
+      "#{api_endpoint}/league/#{@id}?api_key=#{@api_key}"
     end
 
     def conferences_url
-      "#{Fanfeedr::API_ENDPOINT}/leagues/#{@id}/conferences?api_key=#{@api_key}"
+      "#{api_endpoint}/leagues/#{@id}/conferences?api_key=#{@api_key}"
     end
   end
 end

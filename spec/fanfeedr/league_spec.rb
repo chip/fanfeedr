@@ -1,19 +1,17 @@
 require "fanfeedr"
-require "fanfeedr/league"
 require "helper"
 
 describe Fanfeedr::League do
 
-  let(:id) { "13962b74-cab5-5d0a-93c8-466b6a3fa342" } 
+  let(:nfl) { stub_nfl }
+
+  subject { Fanfeedr::League.new(nfl) }
 
   before do
-    url = "#{Fanfeedr::API_ENDPOINT}/leagues/#{id}?api_key=#{stub_api_key}"
-    stub_json_request(url, 'leagues/nfl.json')
+    stub_json_request(stub_league_url(nfl), 'leagues/nfl.json')
   end
 
-  subject { Fanfeedr::League.new("NFL", id, stub_api_key) }
-
-  context "attributes" do
+  context "NFL attributes" do
 
     it "should return the gender" do
       subject.gender.should == 'M'
