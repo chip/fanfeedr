@@ -6,6 +6,23 @@ def stub_api_key
   YAML::load( File.open(file) )["key"]
 end
 
+def stub_api_endpoint
+  'http://ffapi.fanfeedr.com/basic/api'
+end
+
+def stub_leagues_url
+  "#{stub_api_endpoint}/leagues?api_key=#{stub_api_key}"
+end
+
+def stub_league_url(league)
+  "#{stub_api_endpoint}/league/#{league['id']}?api_key=#{stub_api_key}"
+end
+
+def stub_nfl
+  leagues = JSON.parse(json_fixture('leagues.json'))
+  leagues.select {|league| league["name"] == "NFL" }.first
+end
+  
 def json_fixture(file)
   filename = File.dirname(__FILE__) + "/fixtures/#{file}"
   File.open(filename).read
