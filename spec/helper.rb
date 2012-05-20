@@ -1,5 +1,6 @@
-require 'webmock/rspec'
+require "webmock/rspec"
 require "yaml"
+require "fanfeedr/utils"
 
 def stub_api_key
   file = File.dirname(__FILE__) + '/support/fanfeedr.yml'
@@ -11,11 +12,12 @@ def stub_api_endpoint
 end
 
 def stub_leagues_url
-  "#{stub_api_endpoint}/leagues?api_key=#{stub_api_key}"
+  stub_url("leagues")
 end
 
 def stub_league_url(league)
-  "#{stub_api_endpoint}/league/#{league['id']}?api_key=#{stub_api_key}"
+  puts "stub_league_url: #{stub_api_key}"
+  fanfeedr_url("league/#{league['id']}")
 end
 
 def stub_nfl

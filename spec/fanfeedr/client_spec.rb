@@ -21,6 +21,11 @@ describe Fanfeedr::Client do
 
     subject { Fanfeedr::Client.new(stub_api_key) }
 
+    before do
+      url = "#{subject.api_endpoint}/leagues?api_key=#{subject.api_key}"
+      stub_json_request(url, 'leagues.json')
+    end
+
     context "#api_endpoint" do
       
       it "should have an API endpoint" do
@@ -28,27 +33,6 @@ describe Fanfeedr::Client do
       end
     end
 
-    context "#leagues" do
-
-      before do
-        url = "#{subject.api_endpoint}/leagues?api_key=#{stub_api_key}"
-        stub_json_request(url, 'leagues.json')
-      end
-
-      it "should return an Array object" do
-        subject.leagues.should be_a(Array)
-      end
-
-      it "should return an Array of Fanfeedr::League objects" do
-        subject.leagues.each do |league|
-          league.should be_a(Fanfeedr::League)
-        end
-      end
-
-      it "should return 45 leagues" do
-        subject.leagues.size.should == 45
-      end
-    end
   end
 
 end

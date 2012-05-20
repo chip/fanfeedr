@@ -3,6 +3,9 @@ require "helper"
 
 describe Fanfeedr::League do
 
+  xit "should raise an error if an id is not provided"
+  xit "should raise an error if an id is not found"
+
   let(:nfl) { stub_nfl }
 
   subject { Fanfeedr::League.new(nfl) }

@@ -1,5 +1,4 @@
 require 'fanfeedr/utils'
-require 'fanfeedr/leagues'
 
 module Fanfeedr
   class Conferences

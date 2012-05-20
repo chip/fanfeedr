@@ -11,5 +11,10 @@ module Fanfeedr
       json = get url 
       JSON.parse(json)
     end
+
+    def url(url)
+      "#{api_endpoint}/#{url}?api_key=#{stub_api_key}"
+    end
+
   end
 end
