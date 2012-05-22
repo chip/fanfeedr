@@ -24,7 +24,7 @@ describe Fanfeedr::Leagues do
     subject { Fanfeedr::Leagues.new(client) }
 
     before do
-      stub_json_request(client.fanfeedr_url("leagues"), 'leagues.json')
+      stub_json_request(client.fanfeedr_url("/leagues"), 'leagues.json')
     end
       
     describe '.client' do
@@ -53,8 +53,17 @@ describe Fanfeedr::Leagues do
 
     context "#for_league" do
 
+      before do
+        url = client.fanfeedr_url("/leagues/13962b74-cab5-5d0a-93c8-466b6a3fa342")
+        stub_json_request(url, 'leagues/nfl.json')
+      end
+
       it "should return a Fanfeedr::League object" do
         subject.for_league("NFL").should be_a(Fanfeedr::League)
+      end
+    
+      it "should raise an error if league name cannot be found" do
+        subject.for_league("wadiyamean").should raise_error(LeagueNotFoundError)
       end
 
     end

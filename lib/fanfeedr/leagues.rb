@@ -1,3 +1,5 @@
+require 'fanfeedr'
+
 module Fanfeedr
   class Leagues
 
@@ -6,18 +8,20 @@ module Fanfeedr
         raise ArgumentError, "Fanfeedr::Client is required"
       end
       @client = client
-    end
-
-    def client
-      @client
+      records = client.fetch("/leagues") 
+      @data = JSON.parse(records)
     end
 
     def list
-      url = client.fanfeedr_url("leagues")
-      records = client.fetch url
-      records.each_with_object([]) do |league, list|
-        list << Fanfeedr::League.new(client, league['id'])
+      @data.each_with_object([]) do |league, list|
+        list << Fanfeedr::League.new(@client, league['id'])
       end
     end
+
+    def for_league(name)
+      league = @data.select {|league| league.name == name }
+      # raise error if league not found
+    end
+
   end
 end
