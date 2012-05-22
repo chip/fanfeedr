@@ -11,20 +11,6 @@ def stub_api_endpoint
   'http://ffapi.fanfeedr.com/basic/api'
 end
 
-def stub_leagues_url
-  stub_url("leagues")
-end
-
-def stub_league_url(league)
-  puts "stub_league_url: #{stub_api_key}"
-  fanfeedr_url("league/#{league['id']}")
-end
-
-def stub_nfl
-  leagues = JSON.parse(json_fixture('leagues.json'))
-  leagues.select {|league| league["name"] == "NFL" }.first
-end
-  
 def json_fixture(file)
   filename = File.dirname(__FILE__) + "/fixtures/#{file}"
   File.open(filename).read
@@ -36,3 +22,9 @@ def stub_json_request(url, file)
            with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
            to_return(:status => 200, :body => json, :headers => {})
 end
+
+def stub_nfl
+  leagues = JSON.parse(json_fixture('leagues.json'))
+  leagues.select {|league| league["name"] == "NFL" }.first
+end
+  
