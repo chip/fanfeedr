@@ -4,35 +4,35 @@ require 'fanfeedr'
 # client = Fanfeedr::Client.new('your_api_key')
 # leagues = Fanfeedr::Leagues.new(client)
 # leagues.list => [Fanfeedr::League, Fanfeedr::League,...]
-# leagues.for("NFL) => Fanfeedr::League
+# leagues.for("NFL") => Fanfeedr::League
 # league = Fanfeedr::League.new(client, league_id)
 # 
 module Fanfeedr
   class League
 
     def initialize(client, id)
-      url = client.fanfeedr_url("league/#{id}")
-      @league = client.fetch(url)
+      url = client.fanfeedr_url("/leagues/#{id}")
+      @attributes = client.fetch(url)
     end
 
     def id
-      @league["id"]
+      @attributes["id"]
     end
 
     def name
-      @league["name"]
+      @attributes["name"]
     end
 
     def gender
-      @league["gender"]
+      @attributes["gender"]
     end
 
     def sport
-      @league["sport"]
+      @attributes["sport"]
     end
 
     def levels
-      @league["levels"]
+      @attributes["levels"]
     end
 
     #def conferences
