@@ -1,4 +1,4 @@
-require "fanfeedr"
+require 'fanfeedr'
 
 module Fanfeedr
 
@@ -22,12 +22,12 @@ module Fanfeedr
     end
 
     def fetch(url)
-      json = get url 
+      json = get fanfeedr_url(url)
       JSON.parse(json)
     end
 
     def fanfeedr_url(url)
-      "#{api_endpoint}/#{url}?api_key=#{stub_api_key}"
+      "#{api_endpoint}#{url}?api_key=#{api_key}"
     end
 
   end
