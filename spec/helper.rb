@@ -23,6 +23,15 @@ def stub_json_request(url, file)
            to_return(:status => 200, :body => json, :headers => {})
 end
 
+def stub_leagues
+  leagues = JSON.parse(json_fixture('leagues.json'))
+  leagues.each do |league|
+    url = client.fanfeedr_url("/leagues/#{league['id']}")
+    name = league['name'].to_s.downcase.gsub(' ', '_')
+    stub_json_request(url, "leagues/#{name}.json")
+  end
+end
+
 def stub_nfl
   leagues = JSON.parse(json_fixture('leagues.json'))
   leagues.select {|league| league["name"] == "NFL" }.first

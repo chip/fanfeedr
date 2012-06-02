@@ -3,13 +3,12 @@ require 'fanfeedr'
 module Fanfeedr
   class Leagues
 
-    def initialize(client=nil)
+    def initialize(client)
+      @client = client
       unless client.is_a?(Fanfeedr::Client)
         raise ArgumentError, "Fanfeedr::Client is required"
       end
-      @client = client
-      records = client.fetch("/leagues") 
-      @data = JSON.parse(records)
+      @data = client.fetch("/leagues") 
     end
 
     def list
@@ -19,8 +18,15 @@ module Fanfeedr
     end
 
     def for_league(name)
-      league = @data.select {|league| league.name == name }
-      # raise error if league not found
+      league = @data.select do |league| 
+        league['name'] == name
+      end.first
+
+      if league.nil?
+        raise Fanfeedr::LeagueNotFound
+      else
+        Fanfeedr::League.new(@client, league['id'])
+      end
     end
 
   end
