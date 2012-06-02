@@ -2,7 +2,7 @@
 require File.expand_path('../lib/fanfeedr/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Chip Castle"]
+  gem.authors       = ["Chip Castle Dot Com, Inc."]
   gem.email         = ["chip@chipcastle.com"]
   gem.description   = %q{Ruby wrapper for the FanFeedr API}
   gem.summary       = %q{Ruby wrapper for the FanFeedr API}
