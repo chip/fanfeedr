@@ -5,12 +5,10 @@ module Fanfeedr
   class Client
 
     attr_accessor :api_key 
-    attr_reader :leagues
 
     def initialize(api_key=nil)
       raise ArgumentError if api_key.nil?
       @api_key = api_key
-      @leagues = []
     end
 
     def api_endpoint

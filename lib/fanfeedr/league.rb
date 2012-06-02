@@ -10,9 +10,14 @@ require 'fanfeedr'
 module Fanfeedr
   class League
 
-    def initialize(client, id)
-      url = client.fanfeedr_url("/leagues/#{id}")
-      @attributes = client.fetch(url)
+    def initialize(id, client)
+      unless client.is_a?(Fanfeedr::Client)
+        raise ArgumentError, "Fanfeedr::Client is required"
+      end
+      if id.nil?
+        raise Fanfeedr::LeagueIdMissing, "Oops, no league id was provided" 
+      end
+      @attributes = client.fetch("/leagues/#{id}")
     end
 
     def id
@@ -35,17 +40,5 @@ module Fanfeedr
       @attributes["levels"]
     end
 
-    #def conferences
-    #  puts "conferences........"
-    #  data = fetch(conferences_url)
-    #  @conferences = data.inject([]) do |accum, conference|
-    #    puts "id #{@id}"
-    #    accum << Fanfeedr::Conference.new(conference["id"], @id, @api_key)
-    #    puts "accum: #{accum.inspect}"
-    #    accum
-    #  end
-    #  puts "conferences: #{@conferences.inspect}"
-    #  @conferences
-    #end
   end
 end

@@ -3,5 +3,7 @@ require 'json'
 require "fanfeedr/version"
 require "fanfeedr/error"
 require "fanfeedr/client"
-require 'fanfeedr/league'
 require 'fanfeedr/leagues'
+require 'fanfeedr/league'
+require 'fanfeedr/conferences'
+require 'fanfeedr/conference'

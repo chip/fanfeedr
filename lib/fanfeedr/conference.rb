@@ -1,27 +1,36 @@
-require 'fanfeedr/utils'
+require 'fanfeedr'
 
 module Fanfeedr
   class Conference
 
-    attr_reader :name, :id, :api_key, :parent_resource, :resource_id, :resource
+    def initialize(resource_id, id, client)
+      unless client.is_a?(Fanfeedr::Client)
+        raise ArgumentError, "Fanfeedr::Client is required"
+      end
+      if resource_id.nil?
+        raise Fanfeedr::ResourceIdMissing, "Oops, no resource id was provided" 
+      end
+      if id.nil?
+        raise Fanfeedr::ConferenceIdMissing, "Oops, no conference id was provided" 
+      end
+      @resource_id, @client = resource_id, client
+      @attributes = client.fetch("/leagues/#{resource_id}/conferences/#{id}")
+    end
 
-    def initialize(name, id, resource_id, api_key)
-      @name = name
-      @id = id
-      @resource_id = resource_id
-      @api_key = api_key
-      @parent_resource = 'leagues'
-      @resource = 'conferences'
+    def id 
+      @attributes["id"]
+    end
+
+    def name 
+      @attributes["name"]
     end
 
     def level 
-      record["level"]
+      @attributes["level"]
     end
 
-    private
-
-    def url
-      "#{Fanfeedr::API_ENDPOINT}/#{@parent_resource}/#{@resource_id}/#{@id}?api_key=#{@api_key}"
+    def league
+      Fanfeedr::League.new(@resource_id, @client)
     end
 
   end

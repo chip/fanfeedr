@@ -13,7 +13,7 @@ module Fanfeedr
 
     def list
       @data.each_with_object([]) do |league, list|
-        list << Fanfeedr::League.new(@client, league['id'])
+        list << Fanfeedr::League.new(league['id'], @client)
       end
     end
 
@@ -25,7 +25,7 @@ module Fanfeedr
       if league.nil?
         raise Fanfeedr::LeagueNotFound
       else
-        Fanfeedr::League.new(@client, league['id'])
+        Fanfeedr::League.new(league['id'], @client)
       end
     end
 
