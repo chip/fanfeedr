@@ -1,6 +1,9 @@
 # Fanfeedr
 
-TODO: Write a gem description
+Unofficial Ruby wrapper for the FanFeedr API
+
+Any application that uses this gem should follow all requirements from the 
+[official Fanfeedr website](http://www.fanfeedr.com)
 
 ## Installation
 
